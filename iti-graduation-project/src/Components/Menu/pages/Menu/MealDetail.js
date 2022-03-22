@@ -1,12 +1,16 @@
-import { faFileInvoiceDollar } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useSelector,useDispatch } from 'react-redux'
+import { addToCart } from "../../store/action";
+
 
 
 function MealDetails(){
     const params = useParams([])
     const [Menu, setMenu] = useState({})
+    const dispatch = useDispatch()
+    const Favmenu = useSelector((state)=>{return state.menu})
 
      
     useEffect(()=>{
@@ -20,6 +24,22 @@ function MealDetails(){
             console.log(err)
         })
     },[])
+
+
+    const handelMenu=(id)=>{
+        if (Favmenu.includes(id))
+        {
+            console.log(id)
+            const index= Favmenu.indexOf(id)
+            console.log(index)
+            Favmenu.splice(index,1)
+            dispatch(
+                addToCart([...Favmenu])
+            )
+        }else{
+            dispatch(addToCart([id, ...Favmenu]))
+        }
+    }
 
    
     return(
@@ -68,64 +88,19 @@ function MealDetails(){
             </div>
             <div className='nameImg' style={{height:"fitContent " , margin:"10% 2% " , width:"189% " , padding:"5%"}} >
 
-                    <div className='mealName fs-2'> Meal Details</div>
-                <div className='fs-4'style={{marginLeft:"5%"}} > {Menu.details}</div>
-                    
+                <div className='mealName fs-2'> Meal Details</div>
+                <div className='fs-4'style={{marginLeft:"5%"}} > {Menu.details}
+                <div >
+                    <button type="button" className="add btn btn-warning" style={{ float:"right"}}  onClick={()=>{handelMenu(Menu._id)}} >
+                         Add to Cart </button> 
+                </div>
+                </div>                   
+
 
             </div>
+               
 
         </div>
-
-        {/* <div className='details'>
-            <div className='nameImg' >
-                <div className='tit'>
-                        <p className='fs-2'> {Menu.name}</p>
-                </div>
-                <div className='myimg'>
-                <img width={"80%"} src={Menu.image}/>
-                </div>
-               
-            </div>
-
-            <div >
-                <div>
-                    <h3 className='tit'> Details: </h3>
-                    <div className='fs-4 m-2'> {Menu.details}</div>
-                </div>
-                <div>
-                    <h3 className='tit'> Recipe Informations</h3>
-
-                    {
-                    Menu['Recipeinfo'] && 
-                        
-                        <div>
-                        {Object.keys(Menu['Recipeinfo']).map(key => (
-                            <div key={Math.random()} className='fs-4 m-2'> {key}  : {Menu['Recipeinfo'][key]} </div>
-                        ))}
-                        </div>
-                    }
-
-                </div>
-
-            </div>
-            <div >
-            <h3 className='tit'> Nutrition Informations</h3>
-
-            {
-                    Menu['NutritionInfo'] && 
-                        
-                        <div>
-                        {Object.keys(Menu['NutritionInfo']).map(key => (
-                            <div key={Math.random()} className='fs-4 m-2'> {key}  : {Menu['NutritionInfo'][key]} </div>
-                        ))}
-                        </div>
-                        
-                    }
-
-
-            </div>
-
-        </div> */}
         </>
         
     )

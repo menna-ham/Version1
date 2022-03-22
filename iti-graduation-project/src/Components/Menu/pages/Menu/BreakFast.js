@@ -53,6 +53,7 @@ function BreakFast(){
                           addFun={handelMenu}
                           favMenu={Favmenu}
                           category={men.category}
+                          calories = {men.NutritionInfo['calories']}
                           />
                          </div>
                          

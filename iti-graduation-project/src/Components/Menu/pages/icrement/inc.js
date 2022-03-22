@@ -1,7 +1,7 @@
 import {useState} from "react";
 function IncDecCounter(props){
-
   let [num, setNum]= useState(1);
+  num = props.num
   let incNum =()=>{
     if(num<10)
     {
@@ -25,7 +25,6 @@ function IncDecCounter(props){
             <button className="btn btn-outline-primary" type="button" onClick={decNum}>-</button>
         </div>
         <input type="text" className="form-control" value={num} onChange={handleChange}/>
-        {console.log(props.number)}
         <div className="input-group-prepend">
             <button className="btn btn-outline-primary" type="button" onClick={incNum}>+</button>
         </div>

@@ -10,14 +10,13 @@ import { Card } from "react-bootstrap";
 
 function ShoppingList(){
 
-    const total = 0;
-    //this.props.cart.map(item => total += item.product.price * item.quantity);
-
 
 
     const dispatch = useDispatch()
 
     const [Menu,setMenu] = useState([])
+    const [input, setInput] = useState(); 
+
 
     const FavMen= useSelector((state)=>{return state.menu})
 
@@ -34,6 +33,10 @@ function ShoppingList(){
             console.log(err)
         })
     },[])
+
+    let total=0;
+    let TotalPrice=0;
+
 
     const handelMenu=(id)=>{
         if (FavMen.includes(id))
@@ -76,45 +79,65 @@ function ShoppingList(){
                                {
                                    
                                 filterMenu.map(men=>{
+                                    // TotalPrice =TotalPrice+ men.price * input ;
                                     return(
                                         <>
-                                     <Rows img = {men.image}
-                                        name= {men.name}
-                                        price={men.price}
-                                        remove={handelMenu}
-                                        total={men.price}
-                                        id={men._id}
-                                    />
+                                        <tr>   
+                                            <td className="col-3">
+                                                    <div>
+                                                    <img className="myimg" src={men.image} alt={men.name}/>   
+                                                    </div>
+                                            </td>  
+                                            <td >{men.name}</td>
+                                            <td>{men.price}</td>
+                                            <td className="count">
+                                            <input type="number" id='myinput' defaultValue={1} onChange={event => setInput(event.target.value)} />
+                                            </td>
+                                            <td>{
+                                                (input==null)? men.price :
+                                                men.price*input 
+                                            }</td>
+                                            <td >
+                                                <button type="button"  className="add btn btn-danger" onClick={()=>{handelMenu(men._id)}} >
+                                                    <i className="far fa-star"></i> Remove From Cart  </button>
+                                            </td>
+                                        </tr>
                                         </>
+                                        
                                     )
-    
+                                    
                                 })
                                 }                           
                             </tbody>
-
                     </Table>
                 <div>
-                    {/* {    filterMenu.map(men=>{
-                            total=+ men.price
+                    {      
+                      filterMenu.map(men=>
+                        {
+                            let p = Number(men.price)
+                             total = total +p 
                         })
-                    } */}
+                    }
                     <div className="panel-footer">
                     <div className="row text-center">
                         <div className="col-xs-11">
-                            <h4 className="text-right">Total <strong>${total.toFixed(3)}</strong></h4>
+                            <h4 className="text-right">TotalPrice <strong>${input==1? total :TotalPrice}</strong></h4>
+                            <h4 className="text-right">total <strong>${total}</strong></h4>
+
                         </div>
                     </div>
                 </div>
                     </div>
+          
                     </div>
                     <div className=" total col-4">
                     <Card className=" bg-dark text-white " style={{ width: '20rem' }}>
                         <Card.Body>
                             <Card.Title className=" M-2 P-2 fw-bold" style={{fontWeight:"bolder" , fontSize:"28px"}}>CARD TOTAL </Card.Title>
                             <Card.Text>
-                                <div>SubTotal :<span>0</span> </div>
+                                <div>SubTotal :<span>{TotalPrice}</span> </div>
                                 <div>Discount : <span>0</span></div>
-                                <div>Total :<span>0</span> </div>
+                                <div>Total :<span>{TotalPrice}</span> </div>
                             </Card.Text>
                             <Button className="bg-light text-danger font-weight-bold">Checkout Now</Button>
                         </Card.Body>
@@ -122,7 +145,7 @@ function ShoppingList(){
                     </div>
                     </div>
                     </>
-                    
+    
             </>
             </>
         )

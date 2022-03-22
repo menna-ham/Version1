@@ -22,7 +22,7 @@ class Card extends React.Component{
                         <p className="txt card-text"> Price: {this.props.price}</p>
                         <p className="txt card-text"> calories: {this.props.calories}</p>
 
-                        <Link key={this.props.id} to={`/menudetails/${this.props.id}`}>Details</Link><br/><br/>
+                        <a href={`/menudetails/${this.props.id}`} class="btn" style={{backgroundColor:"#47B07F", color:"white", marginRight:"2%"}} role="button">Details</a>
                         <button type="button" className="add btn btn-warning" onClick={()=>{this.props.addFun(this.props.id)}} >
                          Add to Cart </button> 
 
