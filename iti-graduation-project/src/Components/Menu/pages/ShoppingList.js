@@ -81,6 +81,16 @@ function ShoppingList(){
                                 filterMenu.map(men=>{
                                     // TotalPrice =TotalPrice+ men.price * input ;
                                     return(
+                                   // <>
+                                    //  <Rows img = {men.image}
+                                    //     name= {men.name}
+                                    //     price={men.price}
+                                    //     remove={handelMenu}
+                                    //     total={men.price}
+                                    //     id={men._id}
+                                    //     qty={input}
+                                    // />
+                                    // </>
                                         <>
                                         <tr>   
                                             <td className="col-3">
