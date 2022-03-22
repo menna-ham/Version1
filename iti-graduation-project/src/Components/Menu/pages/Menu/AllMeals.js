@@ -160,7 +160,7 @@ function AllMeals(){
                           addFun={handelMenu}
                           favMenu={Favmenu}
                           category={men.category}
-                          calories={men.calories}
+                          calories = {men.NutritionInfo['calories']}
                           />
                          </div>
                          

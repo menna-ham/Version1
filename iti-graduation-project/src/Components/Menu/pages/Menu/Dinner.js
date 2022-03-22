@@ -54,6 +54,7 @@ function Dinner(){
                           favMenu={Favmenu}
                           category={men.category}
                           id={men._id}
+                          calories = {men.NutritionInfo['calories']}
                           />
                          </div>
                          
